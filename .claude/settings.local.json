@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Bash(npm install *)",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(npx playwright *)",
+      "Bash(PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npx playwright install chromium)",
+      "Read(//home/ubuntu/.cache/ms-playwright/**)",
+      "Bash(npx msw *)",
+      "Bash(mkdir -p /home/ubuntu/code/hotel-manager/frontend/src/mocks)",
+      "Bash(pkill -f \"vite --port 5173\")",
+      "Bash(node /tmp/verify-hotel.mjs)",
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(node_modules/.bin/vue-tsc)",
+      "Bash(node_modules/typescript/bin/tsc --noEmit)",
+      "Bash(node /tmp/screenshot-avail.mjs)"
+    ],
+    "additionalDirectories": [
+      "/home/ubuntu/code/hotel-manager/frontend/src"
+    ]
+  }
+}

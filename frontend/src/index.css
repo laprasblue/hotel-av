@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f0f2f5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6, p { margin: 0; }
+
+/* ── Page header ──────────────────────────────── */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.page-header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.3px;
+}
+
+/* ── Sidebar ──────────────────────────────────── */
+.app-sider {
+  background: #ffffff !important;
+  border-right: 1px solid #e5e7eb !important;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.04) !important;
+}
+
+.app-sider .ant-menu-light {
+  background: transparent !important;
+  border-right: none !important;
+}
+
+.app-sider .ant-menu-item {
+  border-radius: 8px !important;
+  margin: 2px 8px !important;
+  width: calc(100% - 16px) !important;
+  font-weight: 500 !important;
+  color: #4b5563 !important;
+  transition: background 0.15s, color 0.15s !important;
+}
+
+.app-sider .ant-menu-item:hover {
+  background: #f3f4f6 !important;
+  color: #111827 !important;
+}
+
+.app-sider .ant-menu-item-selected {
+  background: #eff6ff !important;
+  color: #1d4ed8 !important;
+}
+
+.app-sider .ant-menu-item-selected .anticon {
+  color: #1d4ed8 !important;
+}
+
+.app-sider .ant-menu-item-divider {
+  margin: 6px 16px !important;
+  background: #e5e7eb !important;
+}
+
+/* ── Stat cards ───────────────────────────────── */
+.stat-card {
+  border-radius: 12px !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important;
+  transition: box-shadow 0.2s !important;
+}
+.stat-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+}
+
+/* ── Room cards ───────────────────────────────── */
+.room-card {
+  border-radius: 12px !important;
+  border: 1.5px solid #e5e7eb !important;
+  transition: all 0.2s !important;
+  cursor: default;
+}
+.room-card.available {
+  border-color: #d1fae5 !important;
+  background: #f0fdf4 !important;
+}
+.room-card.available:hover {
+  border-color: #6ee7b7 !important;
+  box-shadow: 0 4px 12px rgba(16,185,129,0.15) !important;
+}
+.room-card.occupied {
+  border-color: #fee2e2 !important;
+  background: #fff7f7 !important;
+  opacity: 0.75;
+}
+
+/* ── FullCalendar custom ──────────────────────── */
+.fc {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 13px !important;
+}
+.fc .fc-toolbar-title {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #111827 !important;
+}
+.fc .fc-button {
+  background: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  color: #374151 !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+  padding: 4px 12px !important;
+}
+.fc .fc-button:hover {
+  background: #f9fafb !important;
+  border-color: #9ca3af !important;
+}
+.fc .fc-button-active,
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+  background: #1d4ed8 !important;
+  border-color: #1d4ed8 !important;
+  color: #ffffff !important;
+}
+.fc .fc-today-button {
+  background: #f9fafb !important;
+  color: #374151 !important;
+  border-color: #d1d5db !important;
+}
+.fc .fc-col-header-cell {
+  background: #f9fafb !important;
+  font-weight: 600 !important;
+  color: #6b7280 !important;
+  border-color: #e5e7eb !important;
+}
+.fc .fc-daygrid-day-number,
+.fc .fc-timegrid-slot-label {
+  color: #6b7280 !important;
+  font-size: 12px !important;
+}
+.fc .fc-resource-timeline-divider {
+  background: #e5e7eb !important;
+}
+.fc .fc-datagrid-cell-cushion {
+  padding: 8px 12px !important;
+}
+.fc-timeline-event {
+  border-radius: 4px !important;
+  padding: 2px 6px !important;
+}
+.fc .fc-scrollgrid {
+  border-color: #e5e7eb !important;
+}
+.fc td, .fc th {
+  border-color: #e5e7eb !important;
+}
+.fc .fc-highlight {
+  background: #dbeafe !important;
+  opacity: 0.6 !important;
+}
