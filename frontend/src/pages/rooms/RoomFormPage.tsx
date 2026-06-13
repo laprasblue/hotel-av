@@ -87,7 +87,8 @@ export default function RoomFormPage() {
               <Form.Item
                 name="pricePerNight"
                 label="Giá / đêm (đ)"
-                tooltip="Áp dụng khi đặt theo đêm"
+                tooltip="Hiển thị làm giá gợi ý khi tạo reservation cho phòng này"
+                rules={[{ required: true, message: 'Giá / đêm là bắt buộc' }]}
               >
                 <InputNumber
                   min={0}
@@ -102,7 +103,7 @@ export default function RoomFormPage() {
               <Form.Item
                 name="pricePerHour"
                 label="Giá / giờ (đ)"
-                tooltip="Áp dụng khi đặt theo giờ hoặc phụ thu giờ thêm"
+                tooltip="Tham khảo, hiển thị kèm giá/đêm khi tạo reservation"
               >
                 <InputNumber
                   min={0}

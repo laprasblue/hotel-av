@@ -25,9 +25,6 @@ const steps = [
   { title: 'Xác nhận giá', description: 'Review & confirm' },
 ]
 
-const DEFAULT_PRICE_PER_NIGHT = 500_000
-const DEFAULT_PRICE_PER_HOUR = 80_000
-
 const numberFormatter = (v: number | string | undefined) => `${v}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 const numberParser = (v: string | undefined) => parseFloat(v?.replace(/,/g, '') ?? '0') as 0
 
@@ -68,7 +65,7 @@ export default function ReservationFormPage() {
   const [guestSearch, setGuestSearch] = useState('')
   const [showNewGuestForm, setShowNewGuestForm] = useState(false)
   const [manualPrice, setManualPrice] = useState(false)
-  const [pricePerNightInput, setPricePerNightInput] = useState(DEFAULT_PRICE_PER_NIGHT)
+  const [pricePerNightInput, setPricePerNightInput] = useState(0)
   const [surcharges, setSurcharges] = useState<SurchargeRow[]>([])
   const nextSurchargeId = useRef(1)
 
@@ -87,7 +84,7 @@ export default function ReservationFormPage() {
   const [lastRoomId, setLastRoomId] = useState(selectedRoom?.id)
   if (selectedRoom?.id !== lastRoomId) {
     setLastRoomId(selectedRoom?.id)
-    setPricePerNightInput(selectedRoom?.pricePerNight ?? DEFAULT_PRICE_PER_NIGHT)
+    setPricePerNightInput(selectedRoom?.pricePerNight ?? 0)
     setSurcharges([])
   }
 
@@ -203,11 +200,16 @@ export default function ReservationFormPage() {
                 <span>{r.name}</span>
                 <Tag color="blue" style={{ fontSize: 11 }}>{ROOM_TYPE_LABELS[r.type]}</Tag>
                 {r.capacity && <Text type="secondary" style={{ fontSize: 12 }}>{r.capacity} người</Text>}
-                <Text type="secondary" style={{ fontSize: 12 }}>
-                  Gợi ý: {(r.pricePerNight ?? DEFAULT_PRICE_PER_NIGHT).toLocaleString('vi-VN')}đ/đêm
-                  {' · '}
-                  {(r.pricePerHour ?? DEFAULT_PRICE_PER_HOUR).toLocaleString('vi-VN')}đ/giờ
-                </Text>
+                {r.pricePerNight ? (
+                  <Text type="secondary" style={{ fontSize: 12 }}>
+                    Gợi ý: {r.pricePerNight.toLocaleString('vi-VN')}đ/đêm
+                    {r.pricePerHour ? ` · ${r.pricePerHour.toLocaleString('vi-VN')}đ/giờ` : ''}
+                  </Text>
+                ) : (
+                  <Text type="warning" style={{ fontSize: 12 }}>
+                    Chưa thiết lập giá - cập nhật ở trang Phòng
+                  </Text>
+                )}
               </Space>
             ),
           }))}
