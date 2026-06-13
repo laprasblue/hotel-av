@@ -8,6 +8,8 @@ export type TransactionType = 'INCOME' | 'EXPENSE' | 'ADJUSTMENT'
 
 export type UserRole = 'ADMIN' | 'STAFF'
 
+export type SurchargeCategory = 'BROKEN_FACILITY' | 'FOOD_DRINK' | 'EXTRA_TIME' | 'PENALTY' | 'OTHER'
+
 export interface Property {
   id: number
   name: string
@@ -33,8 +35,18 @@ export interface Room {
   capacity?: number
   images?: string[]
   notes?: string
+  isActive?: boolean
+  pricePerNight?: number
+  pricePerHour?: number
   createdAt: string
   updatedAt: string
+}
+
+export interface Surcharge {
+  category: SurchargeCategory
+  customCategory?: string
+  amount: number
+  notes?: string
 }
 
 export interface Guest {
@@ -61,6 +73,7 @@ export interface Reservation {
   price: number
   discount?: number
   finalPrice: number
+  surcharges?: Surcharge[]
   notes?: string
   status: ReservationStatus
   property?: Property
@@ -103,6 +116,14 @@ export const ROOM_TYPE_LABELS: Record<RoomType, string> = {
   SUITE: 'Suite',
   DUPLEX: 'Duplex',
   FAMILY: 'Family Room',
+}
+
+export const SURCHARGE_CATEGORY_LABELS: Record<SurchargeCategory, string> = {
+  BROKEN_FACILITY: 'Hư hỏng thiết bị',
+  FOOD_DRINK: 'Ăn uống',
+  EXTRA_TIME: 'Phụ thu giờ thêm',
+  PENALTY: 'Phạt / vi phạm',
+  OTHER: 'Khác',
 }
 
 export const RESERVATION_STATUS_LABELS: Record<ReservationStatus, string> = {

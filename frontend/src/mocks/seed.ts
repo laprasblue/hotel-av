@@ -48,23 +48,23 @@ export const PROPERTIES: Property[] = [
 
 export const ROOMS: Room[] = [
   // Đà Lạt Palace Hotel
-  { id: 101, propertyId: 1, name: 'Phòng 101', type: 'STANDARD', description: 'Phòng standard view sân trong, 1 giường đôi.', capacity: 2, images: [], notes: '', createdAt: '2024-01-15T08:00:00Z', updatedAt: '2024-01-15T08:00:00Z' },
-  { id: 102, propertyId: 1, name: 'Phòng 102', type: 'STANDARD', description: 'Phòng standard view sân trong, 2 giường đơn.', capacity: 2, images: [], notes: '', createdAt: '2024-01-15T08:00:00Z', updatedAt: '2024-01-15T08:00:00Z' },
-  { id: 103, propertyId: 1, name: 'Phòng 201', type: 'DELUXE', description: 'Phòng deluxe view hồ Xuân Hương, 1 giường King.', capacity: 2, images: [], notes: 'Có bồn tắm đứng.', createdAt: '2024-01-15T08:00:00Z', updatedAt: '2024-01-15T08:00:00Z' },
-  { id: 104, propertyId: 1, name: 'Phòng 202', type: 'DELUXE', description: 'Phòng deluxe view núi, 1 giường King + sofa.', capacity: 3, images: [], notes: '', createdAt: '2024-01-15T08:00:00Z', updatedAt: '2024-01-15T08:00:00Z' },
-  { id: 105, propertyId: 1, name: 'Suite Đà Lạt', type: 'SUITE', description: 'Suite cao cấp tầng 5, phòng khách riêng, view toàn cảnh thành phố.', capacity: 4, images: [], notes: 'Giá chưa bao gồm minibar.', createdAt: '2024-01-15T08:00:00Z', updatedAt: '2024-01-15T08:00:00Z' },
-  { id: 106, propertyId: 1, name: 'Family Room 301', type: 'FAMILY', description: 'Phòng gia đình rộng 45m², 1 giường King + 2 giường đơn.', capacity: 5, images: [], notes: '', createdAt: '2024-01-15T08:00:00Z', updatedAt: '2024-01-15T08:00:00Z' },
+  { id: 101, propertyId: 1, name: 'Phòng 101', type: 'STANDARD', description: 'Phòng standard view sân trong, 1 giường đôi.', capacity: 2, images: [], notes: '', pricePerNight: 650000, pricePerHour: 80000, createdAt: '2024-01-15T08:00:00Z', updatedAt: '2024-01-15T08:00:00Z' },
+  { id: 102, propertyId: 1, name: 'Phòng 102', type: 'STANDARD', description: 'Phòng standard view sân trong, 2 giường đơn.', capacity: 2, images: [], notes: '', pricePerNight: 650000, pricePerHour: 80000, createdAt: '2024-01-15T08:00:00Z', updatedAt: '2024-01-15T08:00:00Z' },
+  { id: 103, propertyId: 1, name: 'Phòng 201', type: 'DELUXE', description: 'Phòng deluxe view hồ Xuân Hương, 1 giường King.', capacity: 2, images: [], notes: 'Có bồn tắm đứng.', pricePerNight: 850000, pricePerHour: 100000, createdAt: '2024-01-15T08:00:00Z', updatedAt: '2024-01-15T08:00:00Z' },
+  { id: 104, propertyId: 1, name: 'Phòng 202', type: 'DELUXE', description: 'Phòng deluxe view núi, 1 giường King + sofa.', capacity: 3, images: [], notes: '', pricePerNight: 950000, pricePerHour: 120000, createdAt: '2024-01-15T08:00:00Z', updatedAt: '2024-01-15T08:00:00Z' },
+  { id: 105, propertyId: 1, name: 'Suite Đà Lạt', type: 'SUITE', description: 'Suite cao cấp tầng 5, phòng khách riêng, view toàn cảnh thành phố.', capacity: 4, images: [], notes: 'Giá chưa bao gồm minibar.', pricePerNight: 2200000, pricePerHour: 280000, createdAt: '2024-01-15T08:00:00Z', updatedAt: '2024-01-15T08:00:00Z' },
+  { id: 106, propertyId: 1, name: 'Family Room 301', type: 'FAMILY', description: 'Phòng gia đình rộng 45m², 1 giường King + 2 giường đơn.', capacity: 5, images: [], notes: '', pricePerNight: 1400000, pricePerHour: 180000, createdAt: '2024-01-15T08:00:00Z', updatedAt: '2024-01-15T08:00:00Z' },
 
   // Hội An Garden Homestay
-  { id: 201, propertyId: 2, name: 'Phòng Tre Vàng', type: 'STANDARD', description: 'Phòng nhỏ gọn trang trí tre, 1 giường đôi.', capacity: 2, images: [], notes: '', createdAt: '2024-02-01T08:00:00Z', updatedAt: '2024-02-01T08:00:00Z' },
-  { id: 202, propertyId: 2, name: 'Phòng Hoa Giấy', type: 'DELUXE', description: 'Phòng rộng hơn, nhìn ra vườn hoa, có cửa sổ lớn.', capacity: 2, images: [], notes: '', createdAt: '2024-02-01T08:00:00Z', updatedAt: '2024-02-01T08:00:00Z' },
-  { id: 203, propertyId: 2, name: 'Phòng Bao Lơn', type: 'DELUXE', description: 'Phòng có ban công view vườn, 1 giường Queen.', capacity: 2, images: [], notes: 'Rất được yêu thích.', createdAt: '2024-02-01T08:00:00Z', updatedAt: '2024-02-01T08:00:00Z' },
-  { id: 204, propertyId: 2, name: 'Duplex Vườn', type: 'DUPLEX', description: '2 tầng, tầng dưới phòng khách, tầng trên phòng ngủ. Phù hợp cặp đôi.', capacity: 2, images: [], notes: '', createdAt: '2024-02-01T08:00:00Z', updatedAt: '2024-02-01T08:00:00Z' },
+  { id: 201, propertyId: 2, name: 'Phòng Tre Vàng', type: 'STANDARD', description: 'Phòng nhỏ gọn trang trí tre, 1 giường đôi.', capacity: 2, images: [], notes: '', pricePerNight: 420000, pricePerHour: 50000, createdAt: '2024-02-01T08:00:00Z', updatedAt: '2024-02-01T08:00:00Z' },
+  { id: 202, propertyId: 2, name: 'Phòng Hoa Giấy', type: 'DELUXE', description: 'Phòng rộng hơn, nhìn ra vườn hoa, có cửa sổ lớn.', capacity: 2, images: [], notes: '', pricePerNight: 520000, pricePerHour: 65000, createdAt: '2024-02-01T08:00:00Z', updatedAt: '2024-02-01T08:00:00Z' },
+  { id: 203, propertyId: 2, name: 'Phòng Bao Lơn', type: 'DELUXE', description: 'Phòng có ban công view vườn, 1 giường Queen.', capacity: 2, images: [], notes: 'Rất được yêu thích.', pricePerNight: 580000, pricePerHour: 70000, createdAt: '2024-02-01T08:00:00Z', updatedAt: '2024-02-01T08:00:00Z' },
+  { id: 204, propertyId: 2, name: 'Duplex Vườn', type: 'DUPLEX', description: '2 tầng, tầng dưới phòng khách, tầng trên phòng ngủ. Phù hợp cặp đôi.', capacity: 2, images: [], notes: '', pricePerNight: 750000, pricePerHour: 90000, createdAt: '2024-02-01T08:00:00Z', updatedAt: '2024-02-01T08:00:00Z' },
 
   // Phú Quốc Sunset Villa
-  { id: 301, propertyId: 3, name: 'Master Bedroom', type: 'SUITE', description: 'Phòng ngủ chính, giường King, view biển, phòng tắm en-suite.', capacity: 2, images: [], notes: '', createdAt: '2024-03-10T08:00:00Z', updatedAt: '2024-03-10T08:00:00Z' },
-  { id: 302, propertyId: 3, name: 'Phòng ngủ 2', type: 'DELUXE', description: 'Giường Queen, view hồ bơi.', capacity: 2, images: [], notes: '', createdAt: '2024-03-10T08:00:00Z', updatedAt: '2024-03-10T08:00:00Z' },
-  { id: 303, propertyId: 3, name: 'Phòng ngủ 3', type: 'STANDARD', description: '2 giường đơn, view vườn.', capacity: 2, images: [], notes: '', createdAt: '2024-03-10T08:00:00Z', updatedAt: '2024-03-10T08:00:00Z' },
+  { id: 301, propertyId: 3, name: 'Master Bedroom', type: 'SUITE', description: 'Phòng ngủ chính, giường King, view biển, phòng tắm en-suite.', capacity: 2, images: [], notes: '', pricePerNight: 4500000, pricePerHour: 550000, createdAt: '2024-03-10T08:00:00Z', updatedAt: '2024-03-10T08:00:00Z' },
+  { id: 302, propertyId: 3, name: 'Phòng ngủ 2', type: 'DELUXE', description: 'Giường Queen, view hồ bơi.', capacity: 2, images: [], notes: '', pricePerNight: 3800000, pricePerHour: 480000, createdAt: '2024-03-10T08:00:00Z', updatedAt: '2024-03-10T08:00:00Z' },
+  { id: 303, propertyId: 3, name: 'Phòng ngủ 3', type: 'STANDARD', description: '2 giường đơn, view vườn.', capacity: 2, images: [], notes: '', pricePerNight: 3200000, pricePerHour: 400000, createdAt: '2024-03-10T08:00:00Z', updatedAt: '2024-03-10T08:00:00Z' },
 ]
 
 export const GUESTS: Guest[] = [

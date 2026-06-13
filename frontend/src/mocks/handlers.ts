@@ -206,6 +206,7 @@ export const handlers = [
       price: body.price ?? 0,
       discount: body.discount ?? 0,
       finalPrice: (body.price ?? 0) - (body.discount ?? 0),
+      surcharges: body.surcharges,
       notes: body.notes,
       status: 'PENDING',
       createdAt: now(),

@@ -14,13 +14,14 @@ import {
 } from 'antd'
 import {
   PlusOutlined, SearchOutlined, DownloadOutlined,
-  FileExcelOutlined, FilePdfOutlined,
+  FileExcelOutlined, FilePdfOutlined, HomeOutlined,
 } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import type { ColumnsType } from 'antd/es/table'
 import type { Reservation } from '@/types'
 import { RESERVATION_STATUS_LABELS, RESERVATION_STATUS_COLORS } from '@/types'
 import { useReservations } from '@/hooks/useReservations'
+import { useAppStore } from '@/store/appStore'
 import { exportToExcel, exportToPDF } from '@/utils/exportUtils'
 import dayjs from 'dayjs'
 
@@ -29,7 +30,8 @@ const { RangePicker } = DatePicker
 
 export default function ReservationListPage() {
   const navigate = useNavigate()
-  const { data: reservations = [], isLoading } = useReservations()
+  const { selectedProperty } = useAppStore()
+  const { data: reservations = [], isLoading } = useReservations(selectedProperty?.id)
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState<string | undefined>()
 
@@ -117,7 +119,12 @@ export default function ReservationListPage() {
   return (
     <div>
       <div className="page-header">
-        <Title level={4}>Reservations</Title>
+        <Space>
+          <Title level={4} style={{ margin: 0 }}>Reservations</Title>
+          {selectedProperty && (
+            <Tag icon={<HomeOutlined />} color="blue">{selectedProperty.name}</Tag>
+          )}
+        </Space>
         <Space>
           <Dropdown
             menu={{

@@ -6,6 +6,7 @@ import PropertyListPage from '@/pages/properties/PropertyListPage'
 import PropertyFormPage from '@/pages/properties/PropertyFormPage'
 import PropertyDetailPage from '@/pages/properties/PropertyDetailPage'
 import RoomFormPage from '@/pages/rooms/RoomFormPage'
+import RoomListPage from '@/pages/rooms/RoomListPage'
 import AvailabilityPage from '@/pages/availability/AvailabilityPage'
 import ReservationListPage from '@/pages/reservations/ReservationListPage'
 import ReservationFormPage from '@/pages/reservations/ReservationFormPage'
@@ -46,6 +47,7 @@ function App() {
           <Route path="properties/:propertyId/rooms/new" element={<RoomFormPage />} />
 
           {/* Rooms */}
+          <Route path="rooms" element={<RoomListPage />} />
           <Route path="rooms/:propertyId/:roomId/edit" element={<RoomFormPage />} />
 
           {/* Availability */}

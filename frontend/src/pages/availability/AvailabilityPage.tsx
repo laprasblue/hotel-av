@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react'
 import {
-  Card, Typography, Select, Space, Alert, Tag, Modal, Descriptions,
+  Card, Typography, Space, Alert, Tag, Modal, Descriptions,
   Button, DatePicker, Empty, Spin, Row, Col,
 } from 'antd'
 import {
   PlusOutlined, SearchOutlined, CheckCircleFilled,
-  CloseCircleFilled, ClockCircleOutlined,
+  CloseCircleFilled, ClockCircleOutlined, HomeOutlined,
 } from '@ant-design/icons'
 import FullCalendar from '@fullcalendar/react'
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
@@ -14,7 +14,6 @@ import type { EventClickArg, DateSelectArg } from '@fullcalendar/core'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
 import type { Dayjs } from 'dayjs'
-import { useProperties } from '@/hooks/useProperties'
 import { useRooms } from '@/hooks/useRooms'
 import { useReservations } from '@/hooks/useReservations'
 import { useAppStore } from '@/store/appStore'
@@ -37,27 +36,29 @@ const STATUS_EVENT_COLORS: Record<string, string> = {
 export default function AvailabilityPage() {
   const navigate = useNavigate()
   const calendarRef = useRef<FullCalendar>(null)
-  const { data: properties = [] } = useProperties()
-  const { selectedProperty, setSelectedProperty } = useAppStore()
+  const { selectedProperty } = useAppStore()
   const { data: rooms = [] } = useRooms(selectedProperty?.id ?? 0)
   const { data: reservations = [] } = useReservations()
 
   const [selectedEvent, setSelectedEvent] = useState<Reservation | null>(null)
   const [modalOpen, setModalOpen] = useState(false)
 
-  const [searchPropertyId, setSearchPropertyId] = useState<number | undefined>(
-    selectedProperty?.id ?? undefined,
-  )
   const [searchDates, setSearchDates] = useState<[Dayjs, Dayjs] | null>(null)
   const [searchResults, setSearchResults] = useState<RoomAvailability[] | null>(null)
   const [searching, setSearching] = useState(false)
 
+  const [lastPropertyId, setLastPropertyId] = useState(selectedProperty?.id)
+  if (selectedProperty?.id !== lastPropertyId) {
+    setLastPropertyId(selectedProperty?.id)
+    setSearchResults(null)
+  }
+
   const handleSearch = async () => {
-    if (!searchPropertyId || !searchDates) return
+    if (!selectedProperty || !searchDates) return
     setSearching(true)
     try {
       const results = await fetchAvailability(
-        searchPropertyId,
+        selectedProperty.id,
         searchDates[0].startOf('day').toISOString(),
         searchDates[1].endOf('day').toISOString(),
       )
@@ -128,58 +129,52 @@ export default function AvailabilityPage() {
           Kiểm tra phòng nào còn trống trong khoảng thời gian bạn muốn đặt
         </Text>
 
-        <Space wrap size={12} align="end">
-          <div>
-            <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 4 }}>Property</div>
-            <Select
-              placeholder="Chọn property"
-              value={searchPropertyId}
-              onChange={(val) => {
-                setSearchPropertyId(val)
-                const prop = properties.find((p) => p.id === val) ?? null
-                setSelectedProperty(prop)
-                setSearchResults(null)
-              }}
-              options={properties.map((p) => ({ value: p.id, label: p.name }))}
-              style={{ width: 220 }}
-              allowClear
-              onClear={() => {
-                setSearchPropertyId(undefined)
-                setSearchResults(null)
-              }}
-            />
-          </div>
-          <div>
-            <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 4 }}>Ngày check-in → check-out</div>
-            <RangePicker
-              format="DD/MM/YYYY"
-              placeholder={['Check-in', 'Check-out']}
-              onChange={(vals) => {
-                setSearchDates(vals ? (vals as [Dayjs, Dayjs]) : null)
-                setSearchResults(null)
-              }}
-              style={{ width: 280 }}
-            />
-          </div>
-          <Button
-            type="primary"
-            icon={<SearchOutlined />}
-            onClick={handleSearch}
-            disabled={!searchPropertyId || !searchDates}
-            loading={searching}
-            style={{ height: 32 }}
-          >
-            Tìm kiếm
-          </Button>
-          {searchResults && (
+        {!selectedProperty ? (
+          <Alert
+            type="info"
+            showIcon
+            description="Chọn Hotel ở thanh trên cùng để tìm phòng trống."
+          />
+        ) : (
+          <Space wrap size={12} align="end">
+            <div>
+              <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 4 }}>Property</div>
+              <Tag icon={<HomeOutlined />} color="blue" style={{ fontSize: 13, padding: '6px 10px' }}>
+                {selectedProperty.name}
+              </Tag>
+            </div>
+            <div>
+              <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 4 }}>Ngày check-in → check-out</div>
+              <RangePicker
+                format="DD/MM/YYYY"
+                placeholder={['Check-in', 'Check-out']}
+                onChange={(vals) => {
+                  setSearchDates(vals ? (vals as [Dayjs, Dayjs]) : null)
+                  setSearchResults(null)
+                }}
+                style={{ width: 280 }}
+              />
+            </div>
             <Button
-              onClick={() => setSearchResults(null)}
+              type="primary"
+              icon={<SearchOutlined />}
+              onClick={handleSearch}
+              disabled={!searchDates}
+              loading={searching}
               style={{ height: 32 }}
             >
-              Xoá kết quả
+              Tìm kiếm
             </Button>
-          )}
-        </Space>
+            {searchResults && (
+              <Button
+                onClick={() => setSearchResults(null)}
+                style={{ height: 32 }}
+              >
+                Xoá kết quả
+              </Button>
+            )}
+          </Space>
+        )}
       </Card>
 
       {/* ── Search results ────────────────────────────────── */}
@@ -274,26 +269,11 @@ export default function AvailabilityPage() {
             )}
           </Space>
         }
-        extra={
-          <Select
-            placeholder="Chọn property"
-            value={selectedProperty?.id}
-            onChange={(val) => {
-              const prop = properties.find((p) => p.id === val) ?? null
-              setSelectedProperty(prop)
-              setSearchPropertyId(val ?? undefined)
-            }}
-            options={properties.map((p) => ({ value: p.id, label: p.name }))}
-            style={{ width: 210 }}
-            allowClear
-            onClear={() => setSelectedProperty(null)}
-          />
-        }
         styles={{ body: { padding: 0 } }}
       >
         {!selectedProperty ? (
           <div style={{ padding: 24 }}>
-            <Alert type="info" showIcon description="Chọn một property để xem lịch phòng." />
+            <Alert type="info" showIcon description="Chọn Hotel ở thanh trên cùng để xem lịch phòng." />
           </div>
         ) : rooms.length === 0 ? (
           <div style={{ padding: 24 }}>
@@ -312,6 +292,13 @@ export default function AvailabilityPage() {
               alignItems: 'center',
               gap: 16,
             }}>
+              <Space size={5}>
+                <span style={{
+                  width: 10, height: 10, borderRadius: 3,
+                  background: '#f0fdf4', border: '1px solid #6ee7b7', display: 'inline-block',
+                }} />
+                <span style={{ fontSize: 12, color: '#6b7280' }}>Trống (bấm để đặt)</span>
+              </Space>
               {Object.entries(STATUS_EVENT_COLORS).map(([status, color]) =>
                 status !== 'CANCELLED' ? (
                   <Space key={status} size={5}>

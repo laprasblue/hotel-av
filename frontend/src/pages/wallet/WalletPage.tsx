@@ -16,7 +16,7 @@ import {
 } from 'antd'
 import {
   PlusOutlined, DownloadOutlined,
-  FileExcelOutlined, FilePdfOutlined,
+  FileExcelOutlined, FilePdfOutlined, HomeOutlined,
 } from '@ant-design/icons'
 import { exportToExcel, exportToPDF } from '@/utils/exportUtils'
 import { useNavigate } from 'react-router-dom'
@@ -24,6 +24,7 @@ import type { ColumnsType } from 'antd/es/table'
 import type { Transaction } from '@/types'
 import { TRANSACTION_TYPE_LABELS } from '@/types'
 import { useTransactions } from '@/hooks/useTransactions'
+import { useAppStore } from '@/store/appStore'
 import dayjs from 'dayjs'
 
 const { Title } = Typography
@@ -37,7 +38,8 @@ const TYPE_COLORS: Record<string, string> = {
 
 export default function WalletPage() {
   const navigate = useNavigate()
-  const { data: transactions = [], isLoading } = useTransactions()
+  const { selectedProperty } = useAppStore()
+  const { data: transactions = [], isLoading } = useTransactions(selectedProperty?.id)
   const [typeFilter, setTypeFilter] = useState<string | undefined>()
 
   const filtered = transactions.filter(
@@ -133,7 +135,12 @@ export default function WalletPage() {
   return (
     <div>
       <div className="page-header">
-        <Title level={4}>Wallet & Cash Flow</Title>
+        <Space>
+          <Title level={4} style={{ margin: 0 }}>Wallet & Cash Flow</Title>
+          {selectedProperty && (
+            <Tag icon={<HomeOutlined />} color="blue">{selectedProperty.name}</Tag>
+          )}
+        </Space>
         <Space>
           <Dropdown
             menu={{

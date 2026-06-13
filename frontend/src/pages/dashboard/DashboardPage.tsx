@@ -1,4 +1,4 @@
-import { Card, Col, Row, Statistic, Typography, DatePicker, Space, Select, Alert } from 'antd'
+import { Card, Col, Row, Statistic, Typography, DatePicker, Space, Alert } from 'antd'
 import {
   DollarOutlined,
   CalendarOutlined,
@@ -19,7 +19,6 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 import dayjs from 'dayjs'
-import { useProperties } from '@/hooks/useProperties'
 import { useReservations } from '@/hooks/useReservations'
 import { useAppStore } from '@/store/appStore'
 
@@ -40,9 +39,8 @@ const formatVND = (v: number) =>
   v >= 1_000_000 ? `${(v / 1_000_000).toFixed(1)}M` : v.toLocaleString('vi-VN')
 
 export default function DashboardPage() {
-  const { data: properties = [] } = useProperties()
   const { data: allReservations = [] } = useReservations()
-  const { selectedProperty, setSelectedProperty } = useAppStore()
+  const { selectedProperty } = useAppStore()
 
   const propRes = allReservations.filter(
     (r) => !selectedProperty || r.propertyId === selectedProperty.id,
@@ -75,18 +73,6 @@ export default function DashboardPage() {
       <div className="page-header">
         <Title level={4}>Dashboard</Title>
         <Space>
-          <Select
-            placeholder="Chọn Property"
-            value={selectedProperty?.id}
-            onChange={(val) => {
-              const prop = properties.find((p) => p.id === val) ?? null
-              setSelectedProperty(prop)
-            }}
-            options={properties.map((p) => ({ value: p.id, label: p.name }))}
-            style={{ width: 220 }}
-            allowClear
-            onClear={() => setSelectedProperty(null)}
-          />
           <RangePicker />
         </Space>
       </div>
@@ -95,7 +81,7 @@ export default function DashboardPage() {
         <Alert
           type="info"
           showIcon
-          description="Chọn Property để xem thống kê theo từng cơ sở, hoặc đang hiển thị tổng hợp tất cả."
+          description="Chọn Hotel ở thanh trên cùng để xem thống kê theo từng cơ sở, hoặc đang hiển thị tổng hợp tất cả."
           style={{ marginBottom: 20 }}
         />
       )}

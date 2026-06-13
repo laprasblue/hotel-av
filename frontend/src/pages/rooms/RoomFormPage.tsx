@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Form, Input, Select, InputNumber, Button, Card, Typography, Space, message } from 'antd'
+import { Form, Input, Select, InputNumber, Button, Card, Typography, Space, Row, Col, message } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useRoom, useCreateRoom, useUpdateRoom } from '@/hooks/useRooms'
@@ -81,6 +81,39 @@ export default function RoomFormPage() {
           <Form.Item name="capacity" label="Sức chứa (người)">
             <InputNumber min={1} max={20} style={{ width: '100%' }} placeholder="2" />
           </Form.Item>
+
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="pricePerNight"
+                label="Giá / đêm (đ)"
+                tooltip="Áp dụng khi đặt theo đêm"
+              >
+                <InputNumber
+                  min={0}
+                  style={{ width: '100%' }}
+                  placeholder="650000"
+                  formatter={(v) => `${v}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  parser={(v) => parseFloat(v?.replace(/,/g, '') ?? '0') as 0}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="pricePerHour"
+                label="Giá / giờ (đ)"
+                tooltip="Áp dụng khi đặt theo giờ hoặc phụ thu giờ thêm"
+              >
+                <InputNumber
+                  min={0}
+                  style={{ width: '100%' }}
+                  placeholder="80000"
+                  formatter={(v) => `${v}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  parser={(v) => parseFloat(v?.replace(/,/g, '') ?? '0') as 0}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
 
           <Form.Item name="description" label="Mô tả">
             <TextArea rows={3} placeholder="Mô tả về phòng..." />
